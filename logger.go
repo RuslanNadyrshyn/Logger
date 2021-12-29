@@ -37,3 +37,19 @@ func (logger Logger) Warning(toFile bool, message string, params ...interface{})
 func (logger Logger) Debug(toFile bool, message string, params ...interface{}) {
 	logger.Print("debug", toFile, message)
 }
+
+/*
+func main() {
+	file, err := os.Create("logfile")
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	defer file.Close()
+
+	Logger.Info(Logger{file}, false, "Info message")
+	Logger.Error(Logger{file}, false, "Error message!")
+	Logger.Warning(Logger{file}, false, "Warning message!")
+	Logger.Debug(Logger{file}, false, "Debug message")
+}
+*/
