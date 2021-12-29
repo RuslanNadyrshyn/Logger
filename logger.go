@@ -12,9 +12,9 @@ type Logger struct {
 	FileToWrite *os.File
 }
 
-func (logger Logger) Print(level string, toFile bool, message string, params ...interface{}) {
+func (logg Logger) Print(level string, toFile bool, message string, params ...interface{}) {
 	if toFile == true {
-		fmt.Fprintf(logger.FileToWrite, Time+"\nLog "+level+": "+message, params...)
+		fmt.Fprintf(logg.FileToWrite, Time+"\nLog "+level+": "+message, params...)
 	} else {
 		fmt.Println(Time, "\nLog", level+": ", message, " params: ", params)
 	}
@@ -22,34 +22,34 @@ func (logger Logger) Print(level string, toFile bool, message string, params ...
 
 // Info toFile == true - output to file
 // Info toFile == false - output to console
-func (logger Logger) Info(toFile bool, message string, params ...interface{}) {
-	logger.Print("info", toFile, message)
+func (logg Logger) Info(toFile bool, message string, params ...interface{}) {
+	logg.Print("info", toFile, message)
 }
 
-func (logger Logger) Error(toFile bool, message string, params ...interface{}) {
-	logger.Print("error", toFile, message)
+func (logg Logger) Error(toFile bool, message string, params ...interface{}) {
+	logg.Print("error", toFile, message)
 }
 
-func (logger Logger) Warning(toFile bool, message string, params ...interface{}) {
-	logger.Print("warning", toFile, message)
+func (logg Logger) Warning(toFile bool, message string, params ...interface{}) {
+	logg.Print("warning", toFile, message)
 }
 
-func (logger Logger) Debug(toFile bool, message string, params ...interface{}) {
-	logger.Print("debug", toFile, message)
+func (logg Logger) Debug(toFile bool, message string, params ...interface{}) {
+	logg.Print("debug", toFile, message)
 }
 
 /*
 func main() {
-	file, err := os.Create("logfile")
+	file, err := os.OpenFile("logfile", os.O_RDWR|os.O_APPEND|os.O_CREATE, 0666)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 	defer file.Close()
 
-	Logger.Info(Logger{file}, false, "Info message")
-	Logger.Error(Logger{file}, false, "Error message!")
-	Logger.Warning(Logger{file}, false, "Warning message!")
-	Logger.Debug(Logger{file}, false, "Debug message")
+	logger.Logger.Info(logger.Logger{FileToWrite: file}, true, "Info message")
+	logger.Logger.Error(logger.Logger{FileToWrite: file}, false, "Error message!")
+	logger.Logger.Warning(logger.Logger{FileToWrite: file}, false, "Warning message!")
+	logger.Logger.Debug(logger.Logger{FileToWrite: file}, false, "Debug message")
 }
 */
