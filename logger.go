@@ -1,19 +1,39 @@
 package logger
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"time"
+)
 
-func Info(message string, params interface{}) {
-	fmt.Println("Log info message: ", message, " params: ", params)
+var Time = time.Now().Format(time.RFC850)
+
+type Logger struct {
+	FileToWrite *os.File
 }
 
-func Error(message string, params interface{}) {
-	fmt.Println("Log error message: ", message, " params: ", params)
+func (logger Logger) Print(level string, toFile bool, message string, params ...interface{}) {
+	if toFile == true {
+		fmt.Fprintf(logger.FileToWrite, Time+"\nLog "+level+": "+message, params...)
+	} else {
+		fmt.Println(Time, "\nLog", level+": ", message, " params: ", params)
+	}
 }
 
-func Warning(message string, params interface{}) {
-	fmt.Println("Log warning message: ", message, " params: ", params)
+// Info toFile == true - output to file
+// Info toFile == false - output to console
+func (logger Logger) Info(toFile bool, message string, params ...interface{}) {
+	logger.Print("info", toFile, message)
 }
 
-func Fatal(message string, params interface{}) {
-	fmt.Println("Log fatal: message", message, " params: ", params)
+func (logger Logger) Error(toFile bool, message string, params ...interface{}) {
+	logger.Print("error", toFile, message)
+}
+
+func (logger Logger) Warning(toFile bool, message string, params ...interface{}) {
+	logger.Print("warning", toFile, message)
+}
+
+func (logger Logger) Debug(toFile bool, message string, params ...interface{}) {
+	logger.Print("debug", toFile, message)
 }
