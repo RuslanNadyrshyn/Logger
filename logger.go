@@ -16,7 +16,7 @@ func (logg Logger) Print(level string, toFile bool, message string, params ...in
 	if toFile == true {
 		fmt.Fprintf(logg.FileToWrite, "\n"+Time+"\nLog "+level+": "+message, params...)
 	} else {
-		fmt.Println(Time, "\nLog", level+": ", message, " params: ", params)
+		fmt.Println("\n", Time, "\nLog", level+": ", message, " params: ", params)
 	}
 }
 
