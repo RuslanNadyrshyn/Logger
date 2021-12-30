@@ -14,7 +14,7 @@ type Logger struct {
 
 func (logg Logger) Print(level string, toFile bool, message string, params ...interface{}) {
 	if toFile == true {
-		fmt.Fprintf(logg.FileToWrite, Time+"\nLog "+level+": "+message, params...)
+		fmt.Fprintf(logg.FileToWrite, "\n"+Time+"\nLog "+level+": "+message, params...)
 	} else {
 		fmt.Println(Time, "\nLog", level+": ", message, " params: ", params)
 	}
